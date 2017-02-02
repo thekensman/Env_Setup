@@ -1,0 +1,46 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+source /Users/ken/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /Users/ken/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# bind UP and DOWN arrow keys (compatibility fallback
+# for Ubuntu 12.04, Fedora 21, and MacOSX 10.9 users)
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+# bind k and j for VI mode
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/ken/Downloads/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/ken/Downloads/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/ken/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/ken/Downloads/google-cloud-sdk/completion.zsh.inc'
+fi
+
+source ${ZDOTDIR:-$HOME}/.zsh-git-prompt-master/zshrc.sh
+PROMPT='${fg_bold[white]%}[%{$reset_color%} %{$fg_bold[red]%}%n@%M%{$reset_color%} ${fg_bold[white]%}|%{$reset_color%} %{$fg_bold[green]%}%/%{$reset_color%} ${fg_bold[white]%}|%{$reset_color%} $(git_super_status) %# %{$fg_bold[white]%}]:%{$reset_color%} '
